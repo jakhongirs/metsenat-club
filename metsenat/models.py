@@ -86,9 +86,15 @@ class Student(BaseModel):
 
     university = models.ForeignKey(University, on_delete=models.CASCADE, related_name='students')
 
+    def __str__(self):
+        return self.name
+
 
 # STUDENT SPONSOR:
 class StudentSponsor(BaseModel):
     sponsor = models.ForeignKey(Sponsor, on_delete=models.CASCADE, related_name='students')
     student = models.ForeignKey(Student, on_delete=models.CASCADE, related_name='sponsors')
     amount = models.DecimalField(max_digits=19, decimal_places=2, default=0)
+
+    def __str__(self):
+        return f"{self.sponsor} is sponsored to {self.student}"
