@@ -1,0 +1,55 @@
+from django.db import models
+from helpers.models import BaseModel
+
+# Create your models here.
+
+# SPONSOR TYPE CHOICES:
+INDIVIDUAL = "individual"
+ENTITY = "entity"
+
+SPONSOR_TYPE_CHOICES = (
+    (INDIVIDUAL, "individual"),
+    (ENTITY, "entity"),
+)
+
+# SPONSOR STATUS CHOICES:
+NEW = "yangi"
+IN_MODERATION = "moderatsiyada"
+CONFIRMED = "tasdiqlangan"
+CANCELED = "bekor qilingan"
+
+SPONSOR_STATUS_CHOICES = (
+    (NEW, "yangi"),
+    (IN_MODERATION, "moderatsiyada"),
+    (CONFIRMED, "tasdiqlangan"),
+    (CANCELED, "bekor qilingan"),
+)
+
+# PAYMENT TYPE CHOICES:
+UZCARD = "uzcard"
+HUMO = "humo"
+VISA = "visa"
+
+PAYMENT_TYPE_CHOICES = (
+    (UZCARD, "uzcard"),
+    (HUMO, "humo"),
+    (VISA, "visa"),
+)
+
+
+# SPONSOR:
+class Sponsor(BaseModel):
+    name = models.CharField(max_length=128)
+    slug = models.CharField(max_length=128, unique=True, null=True, blank=True)
+    sponsor_type = models.CharField(max_length=100, choices=SPONSOR_TYPE_CHOICES, default=SPONSOR_TYPE_CHOICES[1][0])
+    phone_number = models.CharField(max_length=128)
+    balance = models.DecimalField(max_digits=19, decimal_places=2, default=0)
+    company_name = models.CharField(max_length=128, null=True, blank=True)
+
+    register_datetime = models.DateTimeField(auto_now_add=True)
+    status = models.CharField(max_length=100, choices=SPONSOR_STATUS_CHOICES, default=SPONSOR_STATUS_CHOICES[0][0])
+    spent_amount = models.DecimalField(max_digits=19, decimal_places=2, default=0)
+    payment_type = models.CharField(max_length=100, choices=PAYMENT_TYPE_CHOICES, null=True, blank=True)
+
+    def __str__(self):
+        return self.name
