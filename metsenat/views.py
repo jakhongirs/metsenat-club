@@ -123,7 +123,7 @@ class UpdateStudentView(generics.RetrieveUpdateDestroyAPIView):
 
 
 # CREATE STUDENT SPONSOR:
-class CreateStudentSponsorView(generics.ListCreateAPIView):
+class CreateStudentSponsorView(generics.CreateAPIView):
     queryset = StudentSponsor.objects.all()
     serializer_class = StudentSponsorSerializer
     pagination_class = CustomPagination

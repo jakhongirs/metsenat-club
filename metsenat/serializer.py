@@ -55,6 +55,19 @@ class ListStudentsSerializer(serializers.ModelSerializer):
 
 # CREATE STUDENT SPONSOR:
 class StudentSponsorSerializer(serializers.ModelSerializer):
+    def validate(self, attrs):
+        if attrs['amount'] > attrs['sponsor'].balance:
+            raise serializers.ValidationError({
+                'amount': "Kiritilgan summa sponsorning balansidan kichik bo'lishi kerak"
+            })
+
+        if attrs['amount'] + attrs['student'].received_amount > attrs['student'].tuition_fee:
+            raise serializers.ValidationError({
+                'amount': "Talabaga ajratilayotgan summa kontrakt summasidan kichik bo'lishi kerak!"
+            })
+
+        return attrs
+
     class Meta:
         model = StudentSponsor
         fields = ('sponsor', 'student', 'amount')
