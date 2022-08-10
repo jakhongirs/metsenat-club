@@ -21,5 +21,5 @@ urlpatterns = [
     path('api/v1/swagger/schema/', schema_view.with_ui('swagger', cache_timeout=0), name="swagger-schema"),
     path('__debug__/', include(debug_toolbar.urls)),
 
-    path('', include('metsenat.urls')),
+    path('api/v1/', include('metsenat.urls')),
 ]
