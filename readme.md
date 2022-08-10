@@ -16,11 +16,14 @@ UNIVERSITY:
 * api/v1/university/create/ - CREATE UNIVERSITY
 
 STUDENT:
+
 * api/v1/student/register/ - REGISTER STUDENT
 * api/v1/students/ - LIST STUDENTS
-
+* api/v1/student/1/ - DETAIL STUDENT
+* api/v1/student/update/1/ - UPDATE STUDENT
 
 STUDENT FILTERS:
+
 * api/v1/students/?search=jakhongir - SEARCH BY NAME
 * api/v1/students/?student_type=magistr - FILTER BY TYPE
 * api/v1/students/?university=1 - FILTER BY UNIVERSITY

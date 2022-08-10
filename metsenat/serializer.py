@@ -60,3 +60,10 @@ class DetailStudentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Student
         fields = ('name', 'phone_number', 'university', 'student_type', 'received_amount', 'tuition_fee')
+
+
+# UPDATE STUDENT:
+class UpdateStudentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Student
+        fields = ('name', 'phone_number', 'university', 'tuition_fee')
