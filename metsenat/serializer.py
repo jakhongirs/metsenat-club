@@ -104,3 +104,17 @@ class UpdateStudentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Student
         fields = ('name', 'phone_number', 'university', 'tuition_fee')
+
+
+# DASHBOARD LINE STUDENTS CHART:
+class LineDashboardStudentsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Student
+        fields = ('name', 'created_at')
+
+
+# DASHBOARD LINE SPONSORS CHART:
+class LineDashboardSponsorsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Sponsor
+        fields = ('name', 'created_at')

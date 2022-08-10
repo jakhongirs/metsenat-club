@@ -32,3 +32,9 @@ STUDENT SPONSORS:
 
 * api/v1/student/sponsor/create - CREATE STUDENT SPONSORS
 * api/v1/student/sponsor/update/1/ - UPDATE STUDENT SPONSOR
+
+DASHBOARD:
+
+* dashboard/ - LIST DASHBBOARD
+* dashboard/students - STUDENT DATA FOR LINE CHART
+* dashboard/sponsors - SPONSOR DATA FOR LINE CHART

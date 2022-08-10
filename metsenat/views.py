@@ -3,12 +3,15 @@ from rest_framework import generics
 from .models import Sponsor, Student, University, StudentSponsor
 from .serializer import RegisterSponsorSerializer, ListSponsorsSerializer, DetailSponsorSerializer, \
     UpdateSponsorSerializer, RegisterStudentSerializer, CreateUniversitySerializer, ListStudentsSerializer, \
-    DetailStudentSerializer, UpdateStudentSerializer, StudentSponsorSerializer, UpdateStudentSponsorSerializer
+    DetailStudentSerializer, UpdateStudentSerializer, StudentSponsorSerializer, UpdateStudentSponsorSerializer, \
+    LineDashboardSponsorsSerializer, LineDashboardStudentsSerializer
 from helpers.pagination import CustomPagination
 from rest_framework.permissions import IsAuthenticated
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import filters
 from django_filters import rest_framework
+from django.db import models
+from rest_framework.response import Response
 
 
 # Create your views here.
@@ -144,3 +147,36 @@ class UpdateStudentSponsorView(generics.RetrieveUpdateDestroyAPIView):
             queryset = queryset.filter(id=self.kwargs['id'])
 
         return queryset
+
+
+# LIST DASHBOARD DATA:
+class DashboardData(generics.ListAPIView):
+    serializer_class = UpdateStudentSponsorSerializer
+    pagination_class = CustomPagination
+
+    def get(self, request, format=None):
+        total_spent = Sponsor.objects.aggregate(total_sponsors_spent=models.Sum('spent_amount'))
+        total_tuition_fee = Student.objects.aggregate(total_tuition_fee=models.Sum('tuition_fee'))
+
+        total_spent = total_spent['total_sponsors_spent']
+        total_tuition_fee = total_tuition_fee['total_tuition_fee']
+
+        required_amount = total_tuition_fee - total_spent
+
+        return Response({'total_sponsors_spent': total_spent,
+                         'total_tuition_fee': total_tuition_fee,
+                         'required_amount': required_amount})
+
+
+# LINE DASHBOARD STUDENT DATA:
+class DashboardLineStudent(generics.ListAPIView):
+    queryset = Student.objects.all()
+    serializer_class = LineDashboardStudentsSerializer
+    pagination_class = CustomPagination
+
+
+# LINE DASHBOARD SPONSOR DATA:
+class DashboardLineSponsor(generics.ListAPIView):
+    queryset = Sponsor.objects.all()
+    serializer_class = LineDashboardSponsorsSerializer
+    pagination_class = CustomPagination

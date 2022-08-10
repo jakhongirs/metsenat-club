@@ -20,4 +20,9 @@ urlpatterns = [
     # Student Sponsor:
     path("student/sponsor/create", views.CreateStudentSponsorView.as_view(), name="create_student_sponsor"),
     path('student/sponsor/update/<int:id>/', views.UpdateStudentSponsorView.as_view(), name="update_student_sponsor"),
+
+    # Dashboard:
+    path("dashboard/", views.DashboardData.as_view(), name="dashboard"),
+    path("dashboard/students", views.DashboardLineStudent.as_view(), name="dashboard_student"),
+    path("dashboard/sponsor", views.DashboardLineSponsor.as_view(), name="dashboard_sponsor"),
 ]
