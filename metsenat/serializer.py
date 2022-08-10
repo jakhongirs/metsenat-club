@@ -60,6 +60,13 @@ class StudentSponsorSerializer(serializers.ModelSerializer):
         fields = ('sponsor', 'student', 'amount')
 
 
+# UPDATE STUDENT SPONSOR:
+class UpdateStudentSponsorSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = StudentSponsor
+        fields = ('sponsor', 'student', 'amount')
+
+
 # DETAIL STUDENT SPONSOR:
 class DetailStudentSponsorSerializer(serializers.ModelSerializer):
     sponsor = ListSponsorsSerializer()

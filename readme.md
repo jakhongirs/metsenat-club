@@ -30,4 +30,5 @@ STUDENT FILTERS:
 
 STUDENT SPONSORS:
 
-* student/sponsor/create - CREATE STUDENT SPONSORS
+* api/v1/student/sponsor/create - CREATE STUDENT SPONSORS
+* api/v1/student/sponsor/update/1/ - UPDATE STUDENT SPONSOR

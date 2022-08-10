@@ -3,7 +3,7 @@ from rest_framework import generics
 from .models import Sponsor, Student, University, StudentSponsor
 from .serializer import RegisterSponsorSerializer, ListSponsorsSerializer, DetailSponsorSerializer, \
     UpdateSponsorSerializer, RegisterStudentSerializer, CreateUniversitySerializer, ListStudentsSerializer, \
-    DetailStudentSerializer, UpdateStudentSerializer, StudentSponsorSerializer
+    DetailStudentSerializer, UpdateStudentSerializer, StudentSponsorSerializer, UpdateStudentSponsorSerializer
 from helpers.pagination import CustomPagination
 from rest_framework.permissions import IsAuthenticated
 from django_filters.rest_framework import DjangoFilterBackend
@@ -129,3 +129,18 @@ class CreateStudentSponsorView(generics.ListCreateAPIView):
     pagination_class = CustomPagination
 
     permission_classes = [IsAuthenticated]
+
+
+# UPDATE STUDENT SPONSOR:
+class UpdateStudentSponsorView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = StudentSponsor.objects.all()
+    serializer_class = UpdateStudentSponsorSerializer
+    pagination_class = CustomPagination
+    lookup_field = 'id'
+
+    def get_queryset(self):
+        queryset = self.queryset
+        if self.kwargs.get('id', None):
+            queryset = queryset.filter(id=self.kwargs['id'])
+
+        return queryset

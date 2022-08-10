@@ -19,4 +19,5 @@ urlpatterns = [
 
     # Student Sponsor:
     path("student/sponsor/create", views.CreateStudentSponsorView.as_view(), name="create_student_sponsor"),
+    path('student/sponsor/update/<int:id>/', views.UpdateStudentSponsorView.as_view(), name="update_student_sponsor"),
 ]
