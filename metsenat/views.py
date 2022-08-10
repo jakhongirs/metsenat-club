@@ -1,9 +1,9 @@
 from django.shortcuts import render
 from rest_framework import generics
-from .models import Sponsor, Student, University
+from .models import Sponsor, Student, University, StudentSponsor
 from .serializer import RegisterSponsorSerializer, ListSponsorsSerializer, DetailSponsorSerializer, \
     UpdateSponsorSerializer, RegisterStudentSerializer, CreateUniversitySerializer, ListStudentsSerializer, \
-    DetailStudentSerializer, UpdateStudentSerializer
+    DetailStudentSerializer, UpdateStudentSerializer, StudentSponsorSerializer
 from helpers.pagination import CustomPagination
 from rest_framework.permissions import IsAuthenticated
 from django_filters.rest_framework import DjangoFilterBackend
@@ -120,3 +120,12 @@ class UpdateStudentView(generics.RetrieveUpdateDestroyAPIView):
             queryset = queryset.filter(id=self.kwargs['id'])
 
         return queryset
+
+
+# CREATE STUDENT SPONSOR:
+class CreateStudentSponsorView(generics.ListCreateAPIView):
+    queryset = StudentSponsor.objects.all()
+    serializer_class = StudentSponsorSerializer
+    pagination_class = CustomPagination
+
+    permission_classes = [IsAuthenticated]

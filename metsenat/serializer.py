@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Sponsor, Student, University
+from .models import Sponsor, Student, University, StudentSponsor
 
 
 # REGISTER SPONSOR:
@@ -53,13 +53,30 @@ class ListStudentsSerializer(serializers.ModelSerializer):
         fields = ('name', 'student_type', 'university', 'received_amount', 'tuition_fee')
 
 
+# CREATE STUDENT SPONSOR:
+class StudentSponsorSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = StudentSponsor
+        fields = ('sponsor', 'student', 'amount')
+
+
+# DETAIL STUDENT SPONSOR:
+class DetailStudentSponsorSerializer(serializers.ModelSerializer):
+    sponsor = ListSponsorsSerializer()
+
+    class Meta:
+        model = StudentSponsor
+        fields = ('sponsor', 'amount')
+
+
 # DETAIL STUDENT:
 class DetailStudentSerializer(serializers.ModelSerializer):
     university = CreateUniversitySerializer()
+    sponsors = DetailStudentSponsorSerializer(many=True)
 
     class Meta:
         model = Student
-        fields = ('name', 'phone_number', 'university', 'student_type', 'received_amount', 'tuition_fee')
+        fields = ('name', 'phone_number', 'university', 'student_type', 'received_amount', 'tuition_fee', 'sponsors')
 
 
 # UPDATE STUDENT:

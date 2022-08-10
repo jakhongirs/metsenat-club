@@ -27,3 +27,7 @@ STUDENT FILTERS:
 * api/v1/students/?search=jakhongir - SEARCH BY NAME
 * api/v1/students/?student_type=magistr - FILTER BY TYPE
 * api/v1/students/?university=1 - FILTER BY UNIVERSITY
+
+STUDENT SPONSORS:
+
+* student/sponsor/create - CREATE STUDENT SPONSORS
