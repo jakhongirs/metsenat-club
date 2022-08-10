@@ -51,3 +51,12 @@ class ListStudentsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Student
         fields = ('name', 'student_type', 'university', 'received_amount', 'tuition_fee')
+
+
+# DETAIL STUDENT:
+class DetailStudentSerializer(serializers.ModelSerializer):
+    university = CreateUniversitySerializer()
+
+    class Meta:
+        model = Student
+        fields = ('name', 'phone_number', 'university', 'student_type', 'received_amount', 'tuition_fee')

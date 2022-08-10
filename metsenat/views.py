@@ -2,7 +2,8 @@ from django.shortcuts import render
 from rest_framework import generics
 from .models import Sponsor, Student, University
 from .serializer import RegisterSponsorSerializer, ListSponsorsSerializer, DetailSponsorSerializer, \
-    UpdateSponsorSerializer, RegisterStudentSerializer, CreateUniversitySerializer, ListStudentsSerializer
+    UpdateSponsorSerializer, RegisterStudentSerializer, CreateUniversitySerializer, ListStudentsSerializer, \
+    DetailStudentSerializer
 from helpers.pagination import CustomPagination
 from rest_framework.permissions import IsAuthenticated
 from django_filters.rest_framework import DjangoFilterBackend
@@ -89,3 +90,18 @@ class ListStudentsView(generics.ListAPIView):
     filter_backends = [DjangoFilterBackend, filters.SearchFilter]
     filterset_fields = ('student_type', 'university')
     search_fields = ('name',)
+
+
+# DETAIL STUDENT:
+class DetailStudentView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Student.objects.all()
+    serializer_class = DetailStudentSerializer
+    pagination_class = CustomPagination
+    lookup_field = 'id'
+
+    def get_queryset(self):
+        queryset = self.queryset
+        if self.kwargs.get('id', None):
+            queryset = queryset.filter(id=self.kwargs['id'])
+
+        return queryset
